@@ -60,14 +60,12 @@ def main():
     dataset = Dataset.Tabular.from_delimited_files(path=datastore_path)
     ds = dataset.to_pandas_dataframe() 
     
-    # x, y = clean_data(ds)
+    x, y = clean_data(ds)
 
     # TODO: Split data into train and test sets.
 
     ### YOUR CODE HERE ###
-    training_data, testing_data = ds.random_split(percentage=0.8, seed=1)
-    x_train, y_train = clean_data(training_data)
-    x_test, y_test = clean_data(testing_data)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=13)
 
     model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
 
