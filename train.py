@@ -57,6 +57,7 @@ def main():
     # "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
 
     datastore_path = ['https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv']
+    
     dataset = Dataset.Tabular.from_delimited_files(path=datastore_path)
     ds = dataset.to_pandas_dataframe() 
     
@@ -65,7 +66,7 @@ def main():
     # TODO: Split data into train and test sets.
 
     ### YOUR CODE HERE ###
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=13)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2022)
 
     model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
 
