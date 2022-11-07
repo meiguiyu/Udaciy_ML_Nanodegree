@@ -58,10 +58,9 @@ def main():
 
     datastore_path = ['https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv']
     
-    dataset = Dataset.Tabular.from_delimited_files(path=datastore_path)
-    ds = dataset.to_pandas_dataframe() 
+    dataset = TabularDatasetFactory.from_delimited_files(path=datastore_path)
     
-    x, y = clean_data(ds)
+    x, y = clean_data(dataset)
 
     # TODO: Split data into train and test sets.
 
