@@ -42,15 +42,15 @@ def main():
     # Add arguments to script
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--learning_rate', type=float, default=0.01, help="Learning speed that control how quickly to find the minimum loss.")
-    parser.add_argument('--batch_size', type=int, default=100, help="Training size that impacts computation time.")
+    parser.add_argument('--C', type=float, default=0.01, help="Learning speed that control how quickly to find the minimum loss.")
+    parser.add_argument('--max_iter', type=int, default=100, help="Training size that impacts computation time.")
 
     args = parser.parse_args()
 
     run = Run.get_context()
 
-    run.log("Regularization Strength:", np.float(args.learning_rate))
-    run.log("Max iterations:", np.int(args.batch_size))
+    run.log("Regularization Strength:", np.float(args.C))
+    run.log("Max iterations:", np.int(args.max_iter))
 
     # TODO: Create TabularDataset using TabularDatasetFactory
     # Data is located at:
@@ -68,7 +68,7 @@ def main():
     ### YOUR CODE HERE ###
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2022)
 
-    model = LogisticRegression(learning_rate=args.learning_rate, batch_size=args.batch_size).fit(x_train, y_train)
+    model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
