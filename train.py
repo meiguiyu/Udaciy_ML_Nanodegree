@@ -68,7 +68,7 @@ def main():
     ### YOUR CODE HERE ###
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2022)
 
-    model = LogisticRegression(C=args.learning_rate, max_iter=args.batch_size).fit(x_train, y_train)
+    model = LogisticRegression(learning_rate=args.learning_rate, batch_size=args.batch_size).fit(x_train, y_train)
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
