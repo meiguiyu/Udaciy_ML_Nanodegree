@@ -42,15 +42,15 @@ def main():
     # Add arguments to script
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--C', type=float, default=1.0, help="Inverse of regularization strength. Smaller values cause stronger regularization")
-    parser.add_argument('--max_iter', type=int, default=100, help="Maximum number of iterations to converge")
+    parser.add_argument('--learning_rate', type=float, default=0.01, help="Learning speed that control how quickly to find the minimum loss.")
+    parser.add_argument('--batch_size', type=int, default=100, help="Training size that impacts computation time.")
 
     args = parser.parse_args()
 
     run = Run.get_context()
 
-    run.log("Regularization Strength:", np.float(args.C))
-    run.log("Max iterations:", np.int(args.max_iter))
+    run.log("Regularization Strength:", np.float(args.learning_rate))
+    run.log("Max iterations:", np.int(args.batch_size))
 
     # TODO: Create TabularDataset using TabularDatasetFactory
     # Data is located at:
@@ -59,16 +59,16 @@ def main():
     datastore_path = ['https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv']
     
     dataset = Dataset.Tabular.from_delimited_files(path=datastore_path)
-    ds = dataset.to_pandas_dataframe() 
+
     
-    x, y = clean_data(ds)
+    x, y = clean_data(dataset)
 
     # TODO: Split data into train and test sets.
 
     ### YOUR CODE HERE ###
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2022)
 
-    model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
+    model = LogisticRegression(C=args.learning_rate, max_iter=args.batch_size).fit(x_train, y_train)
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
