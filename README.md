@@ -46,4 +46,7 @@ model. So based on the accuracy socre, I would say both model are performing wel
 **What are some areas of improvement for future experiments? Why might these improvements help the model?**
 Derive new variables from existing dataset to improve accuracy. Or add new features into the dataset.
 
+## Delete computer cluster
+![alt text](Capture.PNG)
+
 
